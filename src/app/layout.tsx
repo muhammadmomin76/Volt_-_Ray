@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { StructuredData } from "@/components/StructuredData";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body
         className={`${jakarta.variable} antialiased font-sans`}
       >
+        <StructuredData />
         <Navigation />
         <main>{children}</main>
         <Footer />

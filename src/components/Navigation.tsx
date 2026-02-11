@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { throttle } from '@/lib/utils';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,11 +13,13 @@ export function Navigation() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    }, 100);
+    
+    // Cast to any because the throttle return type is generic function
+    window.addEventListener('scroll', handleScroll as any);
+    return () => window.removeEventListener('scroll', handleScroll as any);
   }, []);
 
   const navLinks = [
